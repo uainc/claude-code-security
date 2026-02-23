@@ -27,7 +27,7 @@ jobs:
           claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
 
       - name: Convert to SARIF
-        run: python convert_to_sarif.py
+        run: python convert_to_sarif.py --input /home/runner/work/claude-code-security/claude-code-security/claudecode-results.json --output results.sarif
         
       - name: Upload SARIF to GitHub
         uses: github/codeql-action/upload-sarif@v3
