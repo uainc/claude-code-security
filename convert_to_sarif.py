@@ -58,7 +58,7 @@ def map_severity(severity: str) -> str:
     return mapping.get(severity.lower(), "warning")
 
 # Example usage
-with open("claudecode-results.json") as f:
+with open("/home/runner/work/claude-code-security/claude-code-security/claudecode-results.json") as f:
     claude_findings = json.load(f)
 
 sarif_output = convert_to_sarif(claude_findings)
