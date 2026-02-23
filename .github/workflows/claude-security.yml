@@ -26,6 +26,9 @@ jobs:
           comment-pr: true
           claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
 
+      - name: List all files
+        run: ls -Flas
+        
       - name: Convert to SARIF
         run: python convert_to_sarif.py
         
