@@ -1,4 +1,4 @@
-name: Claude Code Security Review
+name: Claude Code Security
 
 permissions:
   pull-requests: write  # Needed for leaving PR comments
@@ -10,15 +10,29 @@ on:
       - master
 
 jobs:
-  security:
+  claude_scan:
+    name: Claude Code Security
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        name: Checking out the code
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 2
       
       - uses: anthropics/claude-code-security-review@main
+        name: Claude Code Security Scan
         with:
           comment-pr: true
           claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
+
+      - name: List all files
+        run: ls -Flas /home/runner/work/claude-code-security/claude-code-security
+        
+      - name: Convert to SARIF
+        run: python convert_to_sarif.py
+        
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
