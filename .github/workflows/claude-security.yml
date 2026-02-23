@@ -27,7 +27,7 @@ jobs:
           claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
 
       - name: List all files
-        run: ls -Flas
+        run: ls -Flas /home/runner/work/claude-code-security/claude-code-security
         
       - name: Convert to SARIF
         run: python convert_to_sarif.py
